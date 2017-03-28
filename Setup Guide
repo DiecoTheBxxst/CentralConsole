@@ -1,0 +1,88 @@
+Install OS:
+
+- Install CentOS 7.3 minimal server
+- Add ntfs-3g.x86_64 
+	# yum install ntfs-3g.x86_64 
+- Create system enviroment for db encryption
+	#vim /root/.bash_profile
+	... addind at the bottom
+	export CRIPTOKEY=<WhatYouWant>
+
+
+Install ZSF:
+- Download rpm epel for zfs:
+	#wget http://download.zfsonlinux.org/epel/zfs-release.el7_3.noarch.rpm
+	#yum install zfs-release.el7_3.noarch.rpm
+- Enable kernel mod for zfs on zfs.repo ([zfs-kmod]) and disable [zfs]
+- Install zsf:
+	#yum install kernel-devel zfs
+- Create disk pool and enable compression and dedup:
+	#zpool create -f Backup sdb sdc sdd sde
+	#zfs set compression=lz4 Backup
+	#zfs set dedup=on Backup	
+	#systemctl preset zfs-import-cache zfs-import-scan zfs-mount zfs-share zfs-zed zfs.target
+	#systemctl enable zfs-import-scan
+- Create backup folder
+	#zfs create Backup/VMWare
+	#zfs create Backup/OracleVM
+	#zfs create Backup/XEN
+	#zfs create Backup/Hyper-V
+	#zfs create Backup/DB
+	#zfs create Backup/LocalData
+
+Install DB (MySQL):
+- Download repo's for mysql from https://dev.mysql.com/downloads/repo/yum/
+- Install rmp downloaded:
+	#rpm -ivh mysql*-community-release-el*.noarch.rpm
+- Install mysql server:
+	#yum install mysql-server
+- Start mysql and recover temporary root password:
+	#systemctl status mysqld
+	#grep 'temporary password' /var/log/mysqld.log
+- Start first mysql configuration
+	# mysql_secure_installation
+- Create db, admin user and all table
+	# mysql –u root –p
+	> CREATE DATABASE CentralConsole;
+	> USE CentralConsole
+	> CREATE TABLE T_Secrets ( host VARCHAR (150) NOT NULL, user VARCHAR (150) NOT NULL, pwd VARCHAR (150) NOT NULL );
+	> CREATE TABLE T_FileBackup (backupid VARCHAR (150) NOT NULL , host VARCHAR (150) NOT NULL, vm VARCHAR (150) NOT NULL, vmdk VARCHAR(150) NOT NULL, part VARCHAR (150) NOT NULL, filename VARCHAR (1000) NOT NULL, directory VARCHAR (1000), md5 VARCHAR(150) NOT NULL, filetype VARCHAR(150), datebackup DATETIME NOT NULL;
+	> ALTER TABLE T_FileBackup ADD INDEX (backupid);
+	> ALTER TABLE T_FileBackup ADD INDEX (md5);
+	> ALTER TABLE T_FileBackup ADD INDEX (datebackup);
+	> create table T_Jobs (jobid VARCHAR (150) NOT NULL, datejob DATETIME NOT NULL, status INT NOT NULL, pid VARCHAR (150) NOT NULL, script VARCHAR (150) NOT NULL);
+	> alter TABLE T_Jobs add primary key (jobid);
+	> alter TABLE T_Jobs add index (datejob);
+	> CREATE USER ‘ccadmin-sql’@’localhost’ IDENTIFIED BY <SetYourPassword> ;
+	> GRANT ALL PRIVILEGES ON CentralConsole.* TO ‘ccadmin-sql’@’localhost’ ;
+
+Install PYTHON:
+- Intall requirement:
+	#yum -y groupinstall development
+- Donwload the package of python 2.7.x from python.org 
+	#tar -xzvf Python-2.7.*.tgz
+	#cd Python-2.7*
+	#./configure
+	#make
+	#make altinstall
+- Enable epel to install pip
+	#yum install epel-release
+	#yum install python-pip
+- Installare python module:
+	#pip install eventlet
+	#pip install pyvmomi
+	#yum install mysql-connector-python
+	#yum install python-paramiko.noarch
+	
+Install JRUBY:
+-	Install opendjdk and devel 
+	#yum install java-1.8.0-openjdk-devel.x86_64 java-1.8.0-openjdk.x86_64
+- Download package from jruby.org and unzip it on /opt/CentralConsole/jruby
+- Add jruby bin to path
+	#vi /etc/profile
+	....add at the bottom...
+	export PATH=$PATH:/opt/CentralConsole/jruby/bin
+- Install Sinatra
+	#gem install Sinatra
+
+
