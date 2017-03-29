@@ -7,7 +7,14 @@ Install OS:
 	#vim /root/.bash_profile
 	... addind at the bottom
 	export CRIPTOKEY=<WhatYouWant>
-
+- Create application path
+	#mkdir -p /opt/CentralConsole/Script
+	#mkdir /opt/CentralConsole/Script/DataBase
+	#mkdir /opt/CentralConsole/Script/Hyper-V
+	#mkdir /opt/CentralConsole/Script/OracleVM
+	#mkdir /opt/CentralConsole/Script/System
+	#mkdir /opt/CentralConsole/Script/VMWare
+	#mkdir /opt/CentralConsole/Script/XEN
 
 Install ZSF:
 - Download rpm epel for zfs:
