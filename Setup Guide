@@ -15,6 +15,8 @@ Install OS:
 	#mkdir /opt/CentralConsole/Script/System
 	#mkdir /opt/CentralConsole/Script/VMWare
 	#mkdir /opt/CentralConsole/Script/XEN
+- Create folder per log and file di log
+	#mdkir /var/log/CentralConsole/ && touch /var/log/CentralConsole/CentralConsole.log
 
 Install ZSF:
 - Download rpm epel for zfs:
@@ -24,7 +26,7 @@ Install ZSF:
 - Install zsf:
 	#yum install kernel-devel zfs
 - Create disk pool and enable compression and dedup:
-	#zpool create -f Backup sdb sdc sdd sde
+	#zpool create -f Backup <all disk you want to use like so: sdb sdc sdd sde>
 	#zfs set compression=lz4 Backup
 	#zfs set dedup=on Backup	
 	#systemctl preset zfs-import-cache zfs-import-scan zfs-mount zfs-share zfs-zed zfs.target
