@@ -163,7 +163,7 @@ for disk in ListDisk:
 #####################################################################
 Logger.debug("Creo l'ID del backup nel db")
 #print (datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")+" : Creo l'ID del backup nel db")
-DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='G@relli88',database='CentralConsole')
+DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='******',database='CentralConsole')
 Cursor = DBConnection.cursor()
 QueryBackupIDList = (BackupId,DataBackup,"1",PID,ScriptName)
 QueryBackupID =  "INSERT INTO T_Jobs (jobid,datejob,status,pid,script) VALUES (%s,%s,%s,%s,%s)"
@@ -187,7 +187,7 @@ call(["exportfs","-ra"])
 # 1 - Montare Datastore di backup
 #print (datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")+" : Inizio fase 1")
 Logger.debug("Inizio fase 1 - Aggiungo Datastore per il backup")
-Comando1 = "esxcfg-nas --add " + DataStoreBackup + " --host 192.168.128.78 --share " + LocalBackupFolderPath
+Comando1 = "esxcfg-nas --add " + DataStoreBackup + " --host xxx.xxx.xxx.xxx --share " + LocalBackupFolderPath
 Fase1 = ESXCOMMAND(Comando1)
 #print("Fase1: " + Fase1)
 Logger.debug("Fase1 e terminata con il codice : "+Fase1)
@@ -250,7 +250,7 @@ Logger.debug("Inizio Fase 6 - Indicizzazione dei file di bakcup")
 #print (datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")+" : Inizio fase 6")
 #if (Fase2) and (Fase2 == "0") :
 Logger.debug("Apro connessione al db")
-DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='G@relli88',database='CentralConsole')
+DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='*******',database='CentralConsole')
 Cursor = DBConnection.cursor()
 if "Windows" in OSType:
 	for Disk in ListDisk :
