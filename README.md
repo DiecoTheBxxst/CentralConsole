@@ -6,7 +6,7 @@ Central Console is not intended as a commercial product and is not intended as a
 
 TARGET
 
-Central Console want to be just a collection of commands to automate with a simple click all that already is feasible to launching commands manually.
+Central Console want to be just a collection of commands to automate with a simple click all that already is feasible to launching commands manually to backup, manage and monitor your infrastracture
 
 SETUP
 
@@ -34,3 +34,4 @@ ROADMAP
   - Live restore
   - Inventory files for linux guest OS
   - Restore for single files
+ - Switch network map
