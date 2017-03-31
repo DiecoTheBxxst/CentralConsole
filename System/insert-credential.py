@@ -31,6 +31,15 @@ Logger.addHandler(FileHandler)
 ############################ Variabili ##############################
 #####################################################################
 
+with open('/root/.my.cnf') as cnf:
+	for line in cnf:
+		if 'user' in line:
+			SqlUser = (line.split("=")[-1]).strip('\n')
+		if 'password' in line:
+			SqlPwd = (line.split("=")[-1]).strip('\n')
+		if 'database' in line:
+			SqlDb = (line.split("=")[-1]).strip('\n')
+
 ESXSERVER = sys.argv[1]
 ESXUSER = sys.argv[2]
 PASSWORD = sys.argv[3]
@@ -47,7 +56,7 @@ JobId = ESXSERVER + "-" + ESXUSER + "-" + DataJob
 
 Logger.debug("Creo l'ID del backup nel db")
 Logger.debug("Apro connessione al DB")
-DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='***',database='CentralConsole')
+DBConnection = mysql.connector.connect(user=SqlUser, password=SqlPwd, database=SqlDb)
 Cursor = DBConnection.cursor()
 QueryJobIdList = (JobId,DataJob,"1",PID,ScriptName)
 QueryJobId =  "INSERT INTO T_Jobs (jobid,datejob,status,pid,script) VALUES (%s,%s,%s,%s,%s)"
