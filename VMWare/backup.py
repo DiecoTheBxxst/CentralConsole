@@ -72,6 +72,15 @@ def FileType (whichfile) :
 ############################ Variabili ##############################
 #####################################################################
 
+with open('/root/.my.cnf') as cnf:
+	for line in cnf:
+		if 'user' in line:
+			SqlUser = line.split("=")[-1]
+		if 'password' in line:
+			SqlPwd = line.split("=")[-1]
+		if 'database' in line:
+			SqlDb = line.split("=")[-1]
+
 CriptoKey = os.environ['CRIPTOKEY']
 ESXSERVER = sys.argv[1]
 ESXUSER = sys.argv[2]
@@ -80,7 +89,7 @@ ESXVM = sys.argv[3]
 
 try :
 	Logger.debug("Collego al db per ottener al password per l'utente "+ESXUSER+" per il server "+ESXSERVER)
-	DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='G@relli88',database='CentralConsole')
+	DBConnection = mysql.connector.connect(user=SqlUser, password=SqlPwd, database=SqlDb)
 	Cursor = DBConnection.cursor()
 	QueryPwdList = (CriptoKey,ESXSERVER,ESXUSER)
 	QueryPwd = "Select AES_DECRYPT(pwd,%s) from T_Secrets where host=%s and user=%s"
@@ -143,7 +152,7 @@ for disk in ListDisk:
 ############################ Programma ##############################
 #####################################################################
 Logger.debug("Creo l'ID del backup nel db")
-DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='******',database='CentralConsole')
+DBConnection = mysql.connector.connect(user=SqlUser, password=SqlPwd, database=SqlDb)
 Cursor = DBConnection.cursor()
 QueryBackupIDList = (BackupId,DataBackup,"1",PID,ScriptName)
 QueryBackupID =  "INSERT INTO T_Jobs (jobid,datejob,status,pid,script) VALUES (%s,%s,%s,%s,%s)"
@@ -214,7 +223,7 @@ else :
 # 6 - Lancio con processo a parte l'indicizzazione dei file nei dischi
 Logger.debug("Inizio Fase 6 - Indicizzazione dei file di bakcup")
 Logger.debug("Apro connessione al db")
-DBConnection = mysql.connector.connect(user='ccadmin-mysql',password='*******',database='CentralConsole')
+DBConnection = (user=SqlUser, password=SqlPwd, database=SqlDb)
 Cursor = DBConnection.cursor()
 if "Windows" in OSType:
 	for Disk in ListDisk :
