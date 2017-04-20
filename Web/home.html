@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/CSS/home.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <title>Central Console - 1.0.0</title>
+</head>
+<body>
+        <header>
+                <h1 id="TitoloTestata">Central Console</h1>
+        </header>
+        <h1>Aggiungi server</h1>
+        <form id="add-server-form"class="form" action="/add-server" method="post">
+                Server Name: <input type="text" name="servername">
+                Username: <input type="text" name="user">
+                Password: <input type="password" name="password">
+                <input type="button" id="add-server" value="Aggiungi Server">
+        </form>
+        <script>
+                $("#add-server").click(function(){
+                        $.ajax({
+                                type: "POST",
+                                url: "/add-server",
+                                data: JSON.stringify($("#add-server-form").serializeArray()),
+                                dataType: "json",
+                                success: function(data){
+                                        $("#EventTableIntestazione").after("<tr><td class='EvTaTime'>" + data.time + "</td><td class='EvTaMessage'>" + data.result + "</td></tr>");
+                                        alert(data.time + " " + data.result);},
+                                failure: function(data){alert(data.result);}
+                        });
+                });
+        </script>
+
+
+        <h1>Backup Server</h1>
+        <form id="backup-vm-form"class="form" action="/backup-vm" method="post">
+                Server Name: <input type="text" name="servername">
+                Username: <input type="text" name="user">
+                VMName: <input type="text" name="vmname">
+                <input type="button" id="backup-vm" value="Backup VM">
+        </form>
+        <script>
+                $("#backup-vm").click(function(){
+                        $.ajax({
+                                type: "POST",
+                                url: "/backup-vm",
+                                data: JSON.stringify($("#backup-vm-form").serializeArray()),
+                                dataType: "json",
+                                success: function(data){
+                                        $("#EventTableIntestazione").after("<tr><td class='EvTaTime'>" + data.time + "</td><td class='EvTaMessage'>" + data.result + "</td></tr>");
+                                        alert(data.time + " " + data.result);},
+                                failure: function(data){alert(data.result);}
+                        });
+                });
+        </script>
+                <table id="EventTable">
+                        <tr id="EventTableIntestazione">
+                                <th class="EvTaTimeTH">Time</th>
+                                <th class="EvTaMessageTH">Message</th>
+                        </tr>
+                </table>
+        </div>
+</body>
+
+</html>
