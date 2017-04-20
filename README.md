@@ -19,7 +19,7 @@ ACTUAL RELEASE
 FEATURE ENABLED
 - VMWare:
   - Backup (file's inventory for backuped VM - Only Windows)
-  - Riam trial
+  - Riarm trial
 
 ROADMAP
 
@@ -34,4 +34,5 @@ ROADMAP
   - Live restore
   - Inventory files for linux guest OS
   - Restore for single files
+  - Snapshot situation
  - Switch network map
