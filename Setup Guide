@@ -94,4 +94,6 @@ Install JRUBY:
 - Install Sinatra
 	#gem install Sinatra
 
+Install CentralConsole:
+- copy the directory on this repository into /opt/CentralConsole/Script
 
