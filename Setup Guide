@@ -4,7 +4,7 @@ Install OS:
 - Add ntfs-3g.x86_64 
 	# yum install ntfs-3g.x86_64 
 - Create system enviroment for db encryption
-	#vim /root/.bash_profile
+	#vim /etc/default/cc-webhome
 	... addind at the bottom
 	export CRIPTOKEY=<WhatYouWant>
 - Create application path
@@ -96,4 +96,14 @@ Install JRUBY:
 
 Install CentralConsole:
 - copy the directory on this repository into /opt/CentralConsole/Script
+- Create service for application
+	#vim /etc/systemd/system/cc-webhome.service
+		[Unit]
+		Description = Central Console Web Interface
+		After = network.target
+		[Service]
+		ExecStart=/opt/CentralConsole/Script/System/cc-webhome.sh
+		[Install]
+		WantedBy = multi-user.target
+	#systemctl enable /etc/systemd/system/cc-webhome.service
 
