@@ -20,6 +20,7 @@
         </form>
         <script>
                 $("#add-server").click(function(){
+                        $("#EventTableIntestazione").after("<tr><td class='EvTaTime'>" + Date()  + "</td><td class='EvTaMessage'>" + "Start Manage Credential"  + "</td></tr>");
                         $.ajax({
                                 type: "POST",
                                 url: "/add-server",
@@ -43,6 +44,7 @@
         </form>
         <script>
                 $("#backup-vm").click(function(){
+                        $("#EventTableIntestazione").after("<tr><td class='EvTaTime'>" + Date()  + "</td><td class='EvTaMessage'>" + "Start Backup VM"  + "</td></tr>");
                         $.ajax({
                                 type: "POST",
                                 url: "/backup-vm",
