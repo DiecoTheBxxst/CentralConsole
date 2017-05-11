@@ -15,11 +15,12 @@ Follow instruction on setup guide file
 ACTUAL RELEASE
 
 1.1.0
-Add Rearm Trial VMWare license
+ * Add Rearm Trial VMWare license
 
 STORY RELEASE
+
 1.0.0
-Started Editon
+ * Starter Editon
 
 FEATURE ENABLED
 - VMWare:
