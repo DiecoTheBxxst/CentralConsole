@@ -30,6 +30,9 @@ post '/add-server' do
         cmd = 'python /opt/CentralConsole/Script/System/insert-credential.py '+ data[:server] + ' ' + data[:username] + ' ' + data[:password]
         Open3.popen3(cmd) do | stdin, stdout, stderr, status, thread, wait_thr|
                 x = stdout.read
+                y = stderr.read
+                puts x
+                puts y
                 if x.include? "990"
                         {:time => Time.now, :result => "User Already Exist"}.to_json
                 elsif x.include? "0"
@@ -76,3 +79,33 @@ post '/backup-vm' do
         end
 
 end
+                
+post '/rearm-trial' do
+
+        params = JSON.parse(request.env["rack.input"].read)
+        data =  {:server => "", :username => ""}
+
+        params.each {|element|
+                case element['name']
+                        when 'servername' then data[:server] = element['value']
+                        when 'user' then data[:username] = element['value']
+                        else puts "errore"
+                end
+        }
+        cmd = 'python /opt/CentralConsole/Script/VMWare/rearmtrial.py '+ data[:server] + ' ' + data[:username]
+        Open3.popen3(cmd) do | stdin, stdout, stderr, status, thread, wait_thr|
+                x = stdout.read
+                y = stderr.read
+                puts x
+                puts y
+                if x.include? "990"
+                        {:time => Time.now, :result => "Error During Backup"}.to_json
+                elsif x.include? "0"
+                        {:time => Time.now, :result => "Trial Riarmed" }.to_json
+                else
+                        {:time => Time.now, :result => "Generic Error" }.to_json
+                end
+        end
+
+end
+
