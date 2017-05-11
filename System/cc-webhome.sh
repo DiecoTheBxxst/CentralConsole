@@ -4,4 +4,5 @@
 
 cd /opt/CentralConsole/Script/Web
 
-/opt/CentralConsole/jruby/bin/jruby home.rb
+/opt/CentralConsole/jruby/bin/jruby home.rb >> /var/log/CentralConsole/WebService.log 2>&1
+
