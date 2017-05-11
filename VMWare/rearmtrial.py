@@ -9,7 +9,6 @@ import eventlet
 import sys
 import os
 import hashlib
-import multiprocessing
 
 ############################# Logging ###############################
 
