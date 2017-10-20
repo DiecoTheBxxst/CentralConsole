@@ -14,6 +14,9 @@ Follow instruction on setup guide file
 
 ACTUAL RELEASE
 
+2.1.0
+ * Dismiss ruby for Tornado
+
 1.1.0
  * Add Rearm Trial VMWare license
 
