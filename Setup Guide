@@ -82,17 +82,9 @@ Install PYTHON:
 	#pip install pyvmomi
 	#yum install mysql-connector-python
 	#yum install python-paramiko.noarch
-	
-Install JRUBY:
--	Install opendjdk and devel 
-	#yum install java-1.8.0-openjdk-devel.x86_64 java-1.8.0-openjdk.x86_64
-- Download package from jruby.org and unzip it on /opt/CentralConsole/jruby
-- Add jruby bin to path
-	#vi /etc/profile
-	....add at the bottom...
-	export PATH=$PATH:/opt/CentralConsole/jruby/bin
-- Install Sinatra
-	#gem install Sinatra
+
+*** python Tornado 4.5
+
 
 Install CentralConsole:
 - copy the directory on this repository into /opt/CentralConsole/Script
